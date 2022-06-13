@@ -49,7 +49,7 @@
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
-				<a class="sidebar-brand" href="index.html">
+				<a class="sidebar-brand" >
           <span class="align-middle">DirectCargo</span>
         </a>
 

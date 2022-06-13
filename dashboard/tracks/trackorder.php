@@ -58,7 +58,7 @@
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
-				<a class="sidebar-brand" href="index.html">
+				<a class="sidebar-brand" >
                 <span class="align-middle">DirectCargo</span>
         </a>
 
@@ -185,7 +185,7 @@
 	<div class="col-12 col-lg-12 col-xxl-12 d-flex">
 		<div class="card flex-fill" >
 		
-			<table class="table table-hover text-white my-0" style="background-color: #495057;">
+			<table class="table table-hover text-white my-0" style="background-color: #4a8ff3;">
 			
 			
 			
@@ -250,25 +250,38 @@
 						<div class="col-12 col-lg-12 col-xxl-12 d-flex">
 							<div class="card flex-fill">
 							
-								<table class="table table-hover text-white my-0" style="background-color: #495057;">
+								<table class="table table-hover text-white my-0" style="background-color: #4a8ff3;">
 								
 								
 								
                                         <tbody>
                                           
-											<tr>
-										<td>Senders Address</td>
-											<td class=" d-xl-table-cell text-uppercase"><?php echo $row0["from_location"]?></td>
-										</tr>    
+											   
 										<tr>
 											<td>Receivers Address</td>
 											<td class="  d-md-table-cell text-uppercase"><?php echo $row0["to_location"]?></td>
 
 										</tr>
 										<tr>
+					<td >Receivers Email:</td>
+					<td class=" d-md-table-cell  "><?php echo $row0["receiver_email"]?></td>
+				</tr>
+										<tr>
 					<td >Receivers Phone No:</td>
 					<td class=" d-md-table-cell text-uppercase"><?php echo $row0["receiver_phone_number"]?></td>
 				</tr> 
+				<tr>
+										<td>Senders Address</td>
+											<td class=" d-xl-table-cell text-uppercase"><?php echo $row0["from_location"]?></td>
+										</tr> 
+										<tr>
+										<td>Senders Email</td>
+											<td class=" d-xl-table-cell "><?php echo $row0["sender_email"]?></td>
+										</tr>  
+										<tr>
+										<td>Senders Phone Number</td>
+											<td class=" d-xl-table-cell text-uppercase"><?php echo $row0["sender_phone_number"]?></td>
+										</tr> 
                                         </tbody>
                                
                                     </table>

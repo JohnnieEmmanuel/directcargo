@@ -106,7 +106,7 @@
             
 
             <h1 class="text-white font-weight-light mb-5 text-uppercase font-weight-bold">Worldwide Courier Services</h1>
-            <p><a href="#" class="btn btn-primary py-3 px-5 text-white">Get Quota!</a></p>
+          
 
           </div>
         </div>

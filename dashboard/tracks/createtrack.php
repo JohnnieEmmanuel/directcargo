@@ -15,14 +15,30 @@
         $id = $_SESSION['loggedIn_cust_id'];
 		$email = $_SESSION['loggedIn_email'];
 
-        $sql1 = "SELECT * FROM admincontrol WHERE admin_id=".$id;
-        $result1 = $conn->query($sql1);
-        $row1 = $result1->fetch_assoc();
-    
+		//fixing a little bug
 
-        $sql0 = "SELECT * FROM tracks WHERE admin_id ='$id' ORDER BY track_no DESC";
-        $result0 = $conn->query($sql0);
-        $row0 = $result0->fetch_assoc();
+$s1=  '  SET @autoid :=0';
+$s2='UPDATE tracks SET track_no = @autoid:=(@autoid+1)';
+$s3 = 'ALTER TABLE tracks AUTO_INCREMENT=1';
+$ss1 = mysqli_query($conn, $s1);
+$ss2 = mysqli_query($conn, $s2);
+$ss3 = mysqli_query($conn, $s3);
+
+// end
+if($ss1 && $ss2 && $ss3){
+	$sql1 = "SELECT * FROM admincontrol WHERE admin_id=".$id;
+	$result1 = $conn->query($sql1);
+	$row1 = $result1->fetch_assoc();
+
+
+	$sql0 = "SELECT * FROM tracks WHERE admin_id ='$id' ORDER BY track_no DESC";
+	$result0 = $conn->query($sql0);
+	$row0 = $result0->fetch_assoc();
+    echo '<script>console.log("e update");</script>';
+
+}
+
+       
 
        
     }
@@ -56,7 +72,7 @@
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
-				<a class="sidebar-brand" href="index.html">
+				<a class="sidebar-brand" >
           <span class="align-middle">DirectCargo</span>
         </a>
 
@@ -126,38 +142,53 @@
 							<input type="text"  readonly name="tracking_id"  value="<?php echo $tracking_id ?>"  placeholder="<?php echo $tracking_id ?>" class="form-control text-uppercase" >
 							</div>
 							<div class="col-lg-6 " >
-								<label class="card-title mb-0">Receivers Name</label>
+								<label class="card-title mb-0">Receiver's Name</label>
 
 									<input type="text" name="r_name" class="form-control text-uppercase " required>
 							</div>
 							<div class="col-lg-6">
-							<label for="r_address" class="card-title mb-0">Receivers  Address</label>
+							<label for="r_address" class="card-title mb-0">Receiver's  Address</label>
 							<input type="text" name="r_address"	id="r_address" class="form-control text-uppercase w-100">
 							</div>
 							<div class="col-lg-6">
-							<label class="card-title mb-0">Receivers Country</label>
+							<label class="card-title mb-0">Receiver's Country</label>
 							<input type="text" name="r_country" class="form-control text-uppercase" required>
 							</div>
 							<div class="col-lg-6 ">
-							<label class="card-title mb-0">Receivers Phone Number</label>
+							<label class="card-title mb-0">Receiver's Phone Number</label>
 							<span class="d-flex">
 							<label class="card-title " style="margin-right: 2px; margin-top: 10px;"style="width: 10%;">+</label>
 							<input type="number" min="1" placeholder="x" name="country_code" class="form-control text-uppercase" required style="width: 30%;">
-							<input type="" name="r_phone_number" class="form-control text-uppercase" required style="width: 80%;" placeholder="(x)xxx-xxx-xx">
+							<input type="text" name="r_phone_number" class="form-control text-uppercase" required style="width: 80%;" placeholder="(x)xxx-xxx-xx">
 							</span>
 							</div>
 							<div class="col-lg-6">
-							<label class="card-title mb-0">Senders Name</label>
+							<label class="card-title mb-0">Receiver's Email</label>
+							<input type="email" name="r_email" class="form-control text-uppercase" required>
+							</div>
+							<div class="col-lg-6">
+							<label class="card-title mb-0">Sender's Name</label>
 							<input type="text" name="s_name" class="form-control text-uppercase" required>
 							</div>
 							<div class="col-lg-6">
-							<label class="card-title mb-0">Senders Address</label>
+							<label class="card-title mb-0">Sender's Address</label>
 							<input type="text" name="s_address" class="form-control text-uppercase" required>
 							</div>
-							
+							<div class="col-lg-6 ">
+							<label class="card-title mb-0">Sender's Phone Number</label>
+							<span class="d-flex">
+							<label class="card-title " style="margin-right: 2px; margin-top: 10px;"style="width: 10%;">+</label>
+							<input type="number" min="1" placeholder="x" name="s_country_code" class="form-control text-uppercase" required style="width: 20%;">
+							<input type="text" name="s_phone_number" class="form-control text-uppercase" required style="width: 80%;" placeholder="(X) XXX - XXX - XX">
+							</span>
+							</div>
+							<div class="col-lg-6">
+							<label class="card-title mb-0">Sender's Email</label>
+							<input type="email" name="s_email" class="form-control text-uppercase" required>
+							</div>
 							
 							<div class="col-lg-6">
-							<label class="card-title mb-0">Senders Country</label>
+							<label class="card-title mb-0">Sender's Country</label>
 							<input type="text"  name="s_country" class="form-control text-uppercase" required>
 							</div>
 							<div class="col-lg-6">
@@ -174,7 +205,7 @@
 							</div>
 							<div class="col-lg-6">
 							<label class="card-title mb-0">Item Weight</label>
-							<input type="number" min="5" name="weight" class="form-control text-uppercase" required>
+							<input type="number" min="1" name="weight" class="form-control text-uppercase" required>
 							</div>
 							<div class="col-lg-6">
 							<label class="card-title mb-0">Delivery Date</label>
@@ -204,6 +235,17 @@
           <option value="dispatched">Dispatched</option>
           <option value="delivered">Delivered</option>
         </select>
+							</div>
+							<div class="col-lg-6">
+							<label class="card-title mb-0">Job owner</label>
+							<input type="text" name="j_name" class="form-control text-uppercase" required>
+							</div>
+							<div class="col-lg-6">
+							<label class="card-title mb-0">Job owner Phn No.</label>
+							<input type="text" name="j_phno" class="form-control text-uppercase" required>
+							</div>
+							<div class="col-lg-6">
+							<label class="card-title mb-0 " style="color: red;">Fill in all details correctly</label>
 							</div>
 							<div class="col-lg-6 " style="display: inline-flex;" >
 							
